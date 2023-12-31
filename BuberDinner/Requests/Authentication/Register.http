@@ -1,0 +1,10 @@
+
+POST http://localhost:5175/auth/register
+Content-Type: application/json
+
+{
+    "firstName": "Aldi",
+    "lastName" : "Lidl",
+    "email" : "Edeka",
+    "password" : "DM"
+}

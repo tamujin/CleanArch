@@ -1,0 +1,9 @@
+Post http://localhost:5175/auth/login
+Content-Type: application/json
+
+{
+    "email" : "lidl@aldi.com",
+    "password" : "kaufland"
+}
+
+
