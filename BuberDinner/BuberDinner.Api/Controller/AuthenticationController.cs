@@ -1,16 +1,12 @@
-using BuberDinner.Api.Filters;
-using BuberDinner.Application.Common.Errors;
 using BuberDinner.Application.Services.Authentication;
 using BuberDinner.Contracts.Authentication;
-using FluentResults;
+using ErrorOr;
 using Microsoft.AspNetCore.Mvc;
-using OneOf;
 
 namespace BuberDinner.Api.Controller;
 
-[ApiController]
 [Route("auth")]
-public class AuthenticationController : ControllerBase
+public class AuthenticationController : ApiController
 {
     private readonly IAuthenticationService _authenticationService;
 
@@ -22,13 +18,13 @@ public class AuthenticationController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(Contracts.Authentication.RegisterRequest request)
     {
-        Result<AuthenticationResult> registerResult = _authenticationService.Register(request.FirstName,
+        ErrorOr<AuthenticationResult> registerResult = _authenticationService.Register(request.FirstName,
                                                                                                           request.LastName,
                                                                                                           request.Email,
                                                                                                           request.Password);
         return registerResult.Match(
             authResult => Ok(MapAutResults(authResult)),
-            _ => Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists")
+            errors => Problem(errors)
         );
     }
 
@@ -44,7 +40,11 @@ public class AuthenticationController : ControllerBase
     [HttpPost("login")]
     public IActionResult Login(Contracts.Authentication.LoginRequest request)
     {
-        return Ok(_authenticationService.Login(request.Email,
-                                               request.Password));
+        ErrorOr<AuthenticationResult> loginResult = _authenticationService.Login(request.Email,
+                                                                             request.Password);
+        return loginResult.Match(
+            authResult => Ok(authResult),
+            errors => Problem(errors)
+        );
     }
 }
