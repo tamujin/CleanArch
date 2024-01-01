@@ -2,6 +2,7 @@ using BuberDinner.Api.Filters;
 using BuberDinner.Application.Common.Errors;
 using BuberDinner.Application.Services.Authentication;
 using BuberDinner.Contracts.Authentication;
+using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using OneOf;
 
@@ -21,7 +22,7 @@ public class AuthenticationController : ControllerBase
     [HttpPost("register")]
     public IActionResult Register(Contracts.Authentication.RegisterRequest request)
     {
-        OneOf<AuthenticationResult, DuplicateEmailError> registerResult = _authenticationService.Register(request.FirstName,
+        Result<AuthenticationResult> registerResult = _authenticationService.Register(request.FirstName,
                                                                                                           request.LastName,
                                                                                                           request.Email,
                                                                                                           request.Password);
