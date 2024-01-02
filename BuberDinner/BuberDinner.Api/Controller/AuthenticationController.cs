@@ -1,6 +1,9 @@
-using BuberDinner.Application.Services.Authentication;
+using BuberDinner.Application.Authentication.Commands.Register;
+using BuberDinner.Application.Authentication.Common;
+using BuberDinner.Application.Authentication.Queries.Login;
 using BuberDinner.Contracts.Authentication;
 using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuberDinner.Api.Controller;
@@ -8,20 +11,23 @@ namespace BuberDinner.Api.Controller;
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly IMediator _mediator;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(IMediator mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost("register")]
-    public IActionResult Register(Contracts.Authentication.RegisterRequest request)
+    public async Task<IActionResult> Register(Contracts.Authentication.RegisterRequest request)
     {
-        ErrorOr<AuthenticationResult> registerResult = _authenticationService.Register(request.FirstName,
-                                                                                                          request.LastName,
-                                                                                                          request.Email,
-                                                                                                          request.Password);
+        var command = new RegisterCommand(request.FirstName,
+                                          request.LastName,
+                                          request.Email,
+                                          request.Password);
+
+        ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
+
         return registerResult.Match(
             authResult => Ok(MapAutResults(authResult)),
             errors => Problem(errors)
@@ -38,10 +44,12 @@ public class AuthenticationController : ApiController
     }
 
     [HttpPost("login")]
-    public IActionResult Login(Contracts.Authentication.LoginRequest request)
+    public async Task<IActionResult> Login(Contracts.Authentication.LoginRequest request)
     {
-        ErrorOr<AuthenticationResult> loginResult = _authenticationService.Login(request.Email,
-                                                                             request.Password);
+        var query = new LoginQuery(request.Email,
+                                   request.Password);
+
+        ErrorOr<AuthenticationResult> loginResult = await _mediator.Send(query);
         return loginResult.Match(
             authResult => Ok(authResult),
             errors => Problem(errors)
