@@ -15,12 +15,11 @@ public static class DependencyInjection
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
-        services.AddScoped<
-        IPipelineBehavior<RegisterCommand, ErrorOr<AuthenticationResult>>,
-        ValidateBehavior>();
+        services.AddScoped(typeof(IPipelineBehavior<,>),
+                           typeof(ValidationBehavior<,>));
 
         // adding all validator from current assembly
-        // need Fluent.Aspnetcore Package in Application project
+        // need Fluent.Asp net core Package in Application project
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
