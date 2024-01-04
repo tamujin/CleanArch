@@ -31,7 +31,8 @@ code-push:
 	git add .
 	git pull
 	git commit -m "standard message"
-	git push
+	git push ghub master
+	git push origin master
 	echo "code pushed to remote"
 
 
