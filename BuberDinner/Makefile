@@ -24,6 +24,9 @@ watch:
 run:
 	dotnet run --project .\BuberDinner.Api\
 
+format:
+	dotnet format
+
 code-push:
 	git add .
 	git pull

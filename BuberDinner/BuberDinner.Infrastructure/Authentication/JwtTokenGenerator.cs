@@ -1,11 +1,11 @@
-using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
-using BuberDinner.Application.Common.Interfaces.Authentication;
-using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
+using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Common.Services;
-using Microsoft.Extensions.Options;
 using BuberDinner.Domain.Entities;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BuberDinner.Infrastructure.Authentication;
 
