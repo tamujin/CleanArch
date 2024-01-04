@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuberDinner.Domain", "Buber
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuberDinner.Infrastructure", "BuberDinner.Infrastructure\BuberDinner.Infrastructure.csproj", "{7E4DF191-1E7E-4449-A08F-144EB7F8801C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuberDinner.Domain.Tests", "BuberDinner.Domain.Tests\BuberDinner.Domain.Tests.csproj", "{EE2705B2-F805-4169-9E97-B5F2E406C879}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{7E4DF191-1E7E-4449-A08F-144EB7F8801C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E4DF191-1E7E-4449-A08F-144EB7F8801C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E4DF191-1E7E-4449-A08F-144EB7F8801C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE2705B2-F805-4169-9E97-B5F2E406C879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE2705B2-F805-4169-9E97-B5F2E406C879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE2705B2-F805-4169-9E97-B5F2E406C879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE2705B2-F805-4169-9E97-B5F2E406C879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
